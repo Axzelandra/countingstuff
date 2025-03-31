@@ -8,3 +8,7 @@ export const loadCountables = async () => {
   const result = await AsyncStorage.getItem("countables");
   return result ? JSON.parse(result) : [];
 };
+
+export const clearCountables = async () => {
+  await AsyncStorage.removeItem("countables");
+};

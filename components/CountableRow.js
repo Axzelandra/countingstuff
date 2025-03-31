@@ -1,15 +1,21 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Text, View, TouchableOpacity } from "react-native";
 
 import { CountableButton } from "./CountableButton";
 import { CommonStyles } from "../styles/CommonStyles";
 
-export const CountableRow = ({ countable, changeCount, index }) => (
+export const CountableRow = ({
+  countable,
+  changeCount,
+  index,
+  removeCountable,
+}) => (
   <View style={CommonStyles.row}>
-    <View style={styles.nameColumn}>
+    <View style={CommonStyles.nameColumn}>
       <Text style={CommonStyles.textItem}>{countable.name}</Text>
       <Text style={CommonStyles.textItem}>{countable.count}</Text>
     </View>
-    <View style={styles.buttonColumn}>
+    <View style={[CommonStyles.buttonColumn, CommonStyles.counterContainer]}>
       <CountableButton
         label="+"
         submit={() => {
@@ -22,16 +28,14 @@ export const CountableRow = ({ countable, changeCount, index }) => (
           changeCount(-1, index);
         }}
       />
+      <TouchableOpacity
+        style={CommonStyles.deleteButton}
+        onPress={() => {
+          removeCountable(index);
+        }}
+      >
+        <Ionicons name="trash" size={20} color="white" />
+      </TouchableOpacity>
     </View>
   </View>
 );
-
-const styles = StyleSheet.create({
-  nameColumn: {
-    flex: 0.8,
-    alignItems: "center",
-  },
-  buttonColumn: {
-    flex: 0.2,
-  },
-});
